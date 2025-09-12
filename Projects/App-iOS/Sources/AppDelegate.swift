@@ -7,11 +7,10 @@
 
 import UIKit
 
-import App
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
+  private lazy var dependency = CompositionRoot.resolve()
   
   func application(
     _ application: UIApplication,
@@ -19,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   ) -> Bool {
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
-    AppStarter.start(in: window)
+    
+    self.dependency.appStarter.start(in: window)
     window.makeKeyAndVisible()
     return true
   }

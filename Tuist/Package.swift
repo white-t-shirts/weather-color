@@ -15,8 +15,12 @@ import PackageDescription
 let package = Package(
     name: "WeatherColor",
     dependencies: [
-        // Add your own dependencies here:
-        // .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
-        // You can read more about dependencies here: https://docs.tuist.io/documentation/tuist/dependencies
+      .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "6.0.0"),
+      .package(url: "https://github.com/ReactorKit/ReactorKit.git", from: "3.0.0"),
+      .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
+      .package(url: "https://github.com/layoutBox/PinLayout.git", from: "1.0.0"),
+      .package(url: "https://github.com/layoutBox/FlexLayout.git", from: "2.0.0"),
+      .package(url: "https://github.com/Swinject/Swinject.git", from: "2.0.0"),
+      .package(url: "https://github.com/devxoul/Pure.git", from: "1.1.4"),
     ]
 )
