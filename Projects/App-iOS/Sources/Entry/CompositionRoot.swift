@@ -10,6 +10,8 @@ import Shared_Foundation
 import App
 import App_Impl
 
+import AppContext_TabBar
+
 struct AppDependency {
   let appStarter: AppStarter
 }
@@ -19,7 +21,8 @@ enum CompositionRoot {
   
   static func resolve() -> AppDependency {
     let assemblies: [Assembly] = [
-      App_Impl.TabBarControllerAssembly()
+      App_Impl.TabBarControllerAssembly(),
+      AppContext_TabBar.TabBarAssembly(),
     ]
     _ = Assembler(assemblies, container: self.container)
     let resolver = self.container.synchronize()

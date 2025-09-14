@@ -23,8 +23,10 @@ let impl = Target.target(
   dependencies: [
     .target(name: name),
     .project(target: "Shared_Foundation", path: "../Shared/Shared_Foundation"),
+    
     .external(name: "RxSwift"),
     .external(name: "Pure"),
+    .external(name: "PinLayout")
   ]
 )
 

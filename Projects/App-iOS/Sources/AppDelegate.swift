@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Shared_Foundation
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
@@ -16,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    let window = UIWindow(frame: UIScreen.main.bounds)
+    let window = RootWindow(frame: UIScreen.main.bounds)
     self.window = window
     
     self.dependency.appStarter.start(in: window)
