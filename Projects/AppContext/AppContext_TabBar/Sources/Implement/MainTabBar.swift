@@ -17,14 +17,6 @@ import AppContext_TabBar
 
 final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
 
-  // MARK: Constant
-  
-  /// SafeArea 를 포함한 MainTabBar 의 height 값
-  static let tabBarHeight: CGFloat = MainTabBar.tabButtonHeight + UIScreen.safeAreaInsets.bottom
-  /// MainTabBar 의 TabButton 의 height 값
-  static let tabButtonHeight: CGFloat = 40
-
-
   // MARK: Module
   
   public struct Dependency {
@@ -35,11 +27,12 @@ final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
   
   
   // MARK: Properties
-  
+
+  var height: CGFloat = UIScreen.safeAreaInsets.bottom + MainTabBarButton.height
+  var disposeBag = DisposeBag()
+
   private let dependency: Dependency
   private let payload: Payload
-  var height: CGFloat = UIScreen.safeAreaInsets.bottom + MainTabBar.tabButtonHeight
-  var disposeBag = DisposeBag()
 
 
   // MARK: UI
