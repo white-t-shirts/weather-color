@@ -11,21 +11,21 @@ public enum MainTabBarType: CaseIterable {
   case home
   case setting
 
-  var title: String {
+  public var title: String {
     switch self {
     case .home: return "Home"
     case .setting: return "Setting"
     }
   }
 
-  var deselectedImage: UIImage? {
+  public var deselectedImage: UIImage? {
     switch self {
     case .home: return UIImage(named: "cloud.sun")
     case .setting: return UIImage(named: "list.bullet")
     }
   }
 
-  var selectedImage: UIImage? {
+  public var selectedImage: UIImage? {
     switch self {
     case .home: return UIImage(systemName: "cloud.sun")
     case .setting: return UIImage(systemName: "list.bullet")

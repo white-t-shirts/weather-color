@@ -12,7 +12,11 @@ let project = Project(
       infoPlist: .default,
       sources: ["Sources/**"],
       resources: [],
-      dependencies: []
+      dependencies: [
+        .external(name: "Swinject"),
+        .external(name: "Then"),
+        .external(name: "Pure"),
+      ]
     )
   ]
 )

@@ -13,6 +13,8 @@ import Pure
 
 import UIKit
 
+import AppContext_TabBar
+
 final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   // MARK: Constant

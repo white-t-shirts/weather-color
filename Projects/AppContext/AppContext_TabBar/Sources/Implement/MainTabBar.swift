@@ -13,14 +13,16 @@ import UIKit
 
 import Shared_Foundation
 
-public final class MainTabBar: UIView, View, ConfiguratorModule {
-  
+import AppContext_TabBar
+
+final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
+
   // MARK: Constant
   
   /// SafeArea 를 포함한 MainTabBar 의 height 값
-  public static let tabBarHeight: CGFloat = MainTabBar.tabButtonHeight + UIScreen.safeAreaInsets.bottom
+  static let tabBarHeight: CGFloat = MainTabBar.tabButtonHeight + UIScreen.safeAreaInsets.bottom
   /// MainTabBar 의 TabButton 의 height 값
-  public static let tabButtonHeight: CGFloat = 40
+  static let tabButtonHeight: CGFloat = 40
 
 
   // MARK: Module
@@ -34,30 +36,33 @@ public final class MainTabBar: UIView, View, ConfiguratorModule {
   
   // MARK: Properties
   
-  private var dependency: Dependency?
-  private var payload: Payload?
+  private let dependency: Dependency
+  private let payload: Payload
+  var height: CGFloat = UIScreen.safeAreaInsets.bottom + MainTabBar.tabButtonHeight
+  var disposeBag = DisposeBag()
 
 
   // MARK: UI
 
   
   // MARK: Configure
-  
-  public func configure(dependency: Dependency, payload: Payload) {
-    self.dependency = dependency
-    self.payload = payload
+
+
+  func bind(reactor: MainTabBarReactor) {
+
   }
-  
+
   
   // MARK: Initialize
   
-  public override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.backgroundColor = .white
+  public init(dependency: Dependency, payload: Payload) {
+    self.dependency = dependency
+    self.payload = payload
+    super.init(frame: .zero)
     self.configureLayerRadius()
     self.configureBorder()
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

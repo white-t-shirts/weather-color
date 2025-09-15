@@ -12,7 +12,10 @@ let project = Project(
       infoPlist: .default,
       sources: ["Sources/**"],
       resources: [],
-      dependencies: []
+      dependencies: [
+        .external(name: "FlexLayout"),
+        .external(name: "PinLayout"),
+      ]
     )
   ]
 )

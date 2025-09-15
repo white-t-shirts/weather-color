@@ -22,8 +22,14 @@ let impl = Target.target(
   sources: ["Sources/Implement/**"],
   dependencies: [
     .target(name: name),
-    .project(target: "Shared_Foundation", path: "../Shared/Shared_Foundation"),
-    
+    .project(
+      target: "Shared_Foundation",
+      path: .relativeToRoot("Projects/Shared/Shared_Foundation")
+    ),
+    .project(
+      target: "AppContext_TabBar",
+      path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
+    ),
     .external(name: "RxSwift"),
     .external(name: "Pure"),
     .external(name: "PinLayout")

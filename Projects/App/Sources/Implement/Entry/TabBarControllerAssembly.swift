@@ -23,8 +23,11 @@ public final class TabBarControllerAssembly: Assembly {
 
 private extension TabBarControllerAssembly {
   private func registerMainTabBarController(container: Container) {
+    let resolver = container.synchronize()
     container.register(MainTabBarController.Factory.self) { _ in
-      MainTabBarController.Factory(dependency: .init())
+      MainTabBarController.Factory(dependency: .init(
+        tabBarFactory: resolver.resolve()
+      ))
     }
   }
   

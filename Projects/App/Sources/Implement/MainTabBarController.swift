@@ -10,15 +10,17 @@ import Pure
 
 import UIKit
 
+
 import Shared_Foundation
 
 import AppContext_TabBar
 
-final class MainTabBarController: UIViewController, FactoryModule {
-  
+final class MainTabBarController: UITabBarController, FactoryModule {
+
   // MARK: Module
   
   struct Dependency {
+    let tabBarFactory: MainTabBarViewFactory
   }
   
   struct Payload {
@@ -32,10 +34,12 @@ final class MainTabBarController: UIViewController, FactoryModule {
   
   
   // MARK: UI
-  
-  private let tabBar = MainTabBar()
-  
-  
+
+  private lazy var tabBarView: MainTabBarViewType? = {
+    return self.dependency.tabBarFactory.create(payload: .init()) as? MainTabBarViewType
+  }()
+
+
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
@@ -50,6 +54,7 @@ final class MainTabBarController: UIViewController, FactoryModule {
     self.dependency = dependency
     self.payload = payload
     super.init(nibName: nil, bundle: nil)
+    self.tabBar.isHidden = true
     self.defineFlexContainer()
   }
   
@@ -66,12 +71,16 @@ final class MainTabBarController: UIViewController, FactoryModule {
   }
   
   private func defineFlexContainer() {
-    self.view.addSubview(self.tabBar)
+    guard let tabBar = self.tabBarView else { return }
+
+    self.view.addSubview(tabBar)
   }
   
   private func layoutFlexContainer() {
-    self.tabBar.pin.horizontally()
+    guard let tabBar = self.tabBarView else { return }
+
+    tabBar.pin.horizontally()
       .bottom()
-      .height(MainTabBar.tabBarHeight)
+      .height(tabBar.height)
   }
 }

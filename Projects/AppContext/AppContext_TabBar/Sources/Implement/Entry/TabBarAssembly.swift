@@ -7,6 +7,8 @@
 
 import Shared_Foundation
 
+import AppContext_TabBar
+
 public final class TabBarAssembly: Assembly {
   public init() {}
   
@@ -20,8 +22,16 @@ public final class TabBarAssembly: Assembly {
 
 private extension TabBarAssembly {
   private func registerTabBar(container: Container) {
-    container.register(MainTabBar.Configurator.self) { _ in
-      MainTabBar.Configurator(dependency: .init())
+    let resolver = container.synchronize()
+    container.register(MainTabBar.Factory.self) { _ in
+      return MainTabBar.Factory(dependency: .init())
+    }
+
+    container.register(MainTabBarViewFactory.self) { _ in
+      let tabBarFactory: MainTabBar.Factory = resolver.resolve()
+      return MainTabBarViewFactory { payload in
+        tabBarFactory.create(payload: .init())
+      }
     }
   }
 }
