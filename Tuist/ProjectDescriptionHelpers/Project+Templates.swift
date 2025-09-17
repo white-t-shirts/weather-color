@@ -45,7 +45,10 @@ public extension Project {
           infoPlist: .extendingDefault(with: ["UILaunchScreen": [:]]),
           sources: ["Sources/**"],
           resources: ["Resources/**"],
-          dependencies: extraDependencies + appDependency
+          dependencies: extraDependencies + appDependency,
+          settings: .settings(base: [
+            "OTHER_LDFLAGS": ["-ObjC"]
+          ])
         )
       ]
     )

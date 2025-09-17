@@ -18,17 +18,33 @@ public enum MainTabBarType: CaseIterable {
     }
   }
 
-  public var deselectedImage: UIImage? {
-    switch self {
-    case .home: return UIImage(named: "cloud.sun")
-    case .setting: return UIImage(named: "list.bullet")
-    }
+  public var selectedFont: UIFont {
+    return UIFont.systemFont(ofSize: 9, weight: .bold)
+  }
+
+  public var deselectedFont: UIFont {
+    return UIFont.systemFont(ofSize: 9, weight: .medium)
   }
 
   public var selectedImage: UIImage? {
     switch self {
-    case .home: return UIImage(systemName: "cloud.sun")
-    case .setting: return UIImage(systemName: "list.bullet")
+    case .home: return UIImage(systemName: "cloud.sun.fill")
+    case .setting: return UIImage(systemName: "list.dash.header.rectangle")
     }
+  }
+
+  public var deselectedImage: UIImage? {
+    switch self {
+    case .home: return UIImage(systemName: "cloud.sun")
+    case .setting: return UIImage(systemName: "list.dash.header.rectangle")
+    }
+  }
+
+  public var selectedImageTintColor: UIColor {
+    return .systemGray
+  }
+
+  public var deselectedImageTintColor: UIColor {
+    return .systemGray3
   }
 }

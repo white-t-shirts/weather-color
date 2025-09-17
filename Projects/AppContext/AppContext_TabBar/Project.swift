@@ -33,10 +33,17 @@ let impl = Target.target(
     ),
     .external(name: "Then"),
     .external(name: "FlexLayout"),
+    .external(name: "yoga"),
     .external(name: "ReactorKit"),
     .external(name: "RxSwift"),
     .external(name: "RxCocoa"),
-  ]
+  ],
+  settings: .settings(base: [
+    "OTHER_LDFLAGS": ["-ObjC"],           // 필요 시 "-all_load"로 테스트
+    // FlexLayout 소스가 내부에서 #if SWIFT_PACKAGE로 YogaKit 임포트할 때
+    // 강제로 활성화해야 하면 아래도 추가:
+    // "OTHER_SWIFT_FLAGS": ["-DSWIFT_PACKAGE"]
+  ])
 )
 
 let project = Project(

@@ -5,7 +5,7 @@
 //  Created by 김동환 on 9/11/25.
 //
 
-import Shared_Foundation
+import Swinject
 
 import App
 

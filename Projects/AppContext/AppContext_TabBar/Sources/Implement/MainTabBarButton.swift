@@ -7,11 +7,10 @@
 
 import RxSwift
 import RxCocoa
-import FlexLayout
-import Then
-import Pure
 
-import UIKit
+import Shared_Foundation
+
+import AppCore_UI
 
 import AppContext_TabBar
 
@@ -19,33 +18,39 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   // MARK: Constant
 
-  static let height: CGFloat = 40
+  static let height: CGFloat = 52
+
 
   // MARK: Module
 
   struct Dependency {
   }
 
-  struct Payload: Equatable {
-    let buttonType: MainTabBarType
+  struct Payload {
     let tapObserver: AnyObserver<MainTabBarType>
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-      return lhs.buttonType == rhs.buttonType
-    }
   }
 
 
   // MARK: Properties
 
+  let tabBarType: MainTabBarType
+
   override var isSelected: Bool {
     didSet {
-      guard oldValue != self.isSelected else { return }
-
       let tabImage = self.isSelected
-        ? self.payload?.buttonType.selectedImage
-        : self.payload?.buttonType.deselectedImage
+        ? self.tabBarType.selectedImage
+        : self.tabBarType.deselectedImage
       self.tabImageView.image = tabImage
+
+      let imageTintColor = self.isSelected
+        ? self.tabBarType.selectedImageTintColor
+        : self.tabBarType.deselectedImageTintColor
+      self.tabImageView.tintColor = imageTintColor
+
+      let font = self.isSelected
+        ? self.tabBarType.selectedFont
+        : self.tabBarType.deselectedFont
+      self.tabTitleLabel.font = font
     }
   }
 
@@ -58,37 +63,36 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   private let tabImageView = UIImageView().then {
     $0.clipsToBounds = true
-    $0.contentMode = .scaleAspectFill
+    $0.contentMode = .scaleAspectFit
   }
-  private let tabTitleLabel = UILabel()
+  private let tabTitleLabel = UILabel().then {
+    $0.adjustsFontSizeToFitWidth = true
+    $0.textColor = .secondaryLabel
+  }
 
 
   // MARK: Configure
 
   func configure(dependency: Dependency, payload: Payload) {
-    guard self.payload != payload else { return }
     self.disposeBag = DisposeBag()
     self.dependency = dependency
     self.payload = payload
 
-    self.configureButton(payload: payload)
     self.bindTap(payload: payload)
-  }
-
-  private func configureButton(payload: Payload) {
-    self.tabTitleLabel.text = payload.buttonType.title
   }
 
 
   // MARK: Initialize
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.backgroundColor = .red
+  public init (tabBarButtonType: MainTabBarType) {
+    self.tabBarType = tabBarButtonType
+    self.tabTitleLabel.text = tabBarButtonType.title
+    super.init(frame: .zero)
     self.defineFlexContainer()
   }
 
-  required init?(coder: NSCoder) {
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -97,7 +101,7 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   private func bindTap(payload: Payload) {
     self.rx.tap
-      .map { _ in payload.buttonType }
+      .map { [weak self] _ in self?.tabBarType ?? .home }
       .bind(to: payload.tapObserver)
       .disposed(by: self.disposeBag)
   }
@@ -105,17 +109,13 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    self.flex.layout()
-  }
-
   private func defineFlexContainer() {
     self.flex
-      .justifyContent(.spaceBetween)
       .alignItems(.center)
+      .paddingTop(5)
       .define {
-        $0.addItem(self.tabImageView).size(15)
+        $0.addItem(self.tabImageView).size(32)
+        $0.addItem().height(3)
         $0.addItem(self.tabTitleLabel)
       }
   }

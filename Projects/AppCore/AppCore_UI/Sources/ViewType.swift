@@ -5,6 +5,8 @@
 //  Created by 김동환 on 9/14/25.
 //
 
+import UIKit
+
 public protocol ViewType where Self: UIView {}
 
 public protocol ViewFactoryType {

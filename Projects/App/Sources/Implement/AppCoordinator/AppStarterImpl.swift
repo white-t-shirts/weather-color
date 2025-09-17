@@ -5,7 +5,7 @@
 //  Created by 김동환 on 8/16/25.
 //
 
-import UIKit
+import AppCore_UI
 
 import App
 
