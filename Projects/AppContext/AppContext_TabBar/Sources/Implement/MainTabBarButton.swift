@@ -101,6 +101,10 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   private func bindTap(payload: Payload) {
     self.rx.tap
+      .do(onNext: { _ in
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+      })
       .map { [weak self] _ in self?.tabBarType ?? .home }
       .bind(to: payload.tapObserver)
       .disposed(by: self.disposeBag)
