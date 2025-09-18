@@ -7,8 +7,6 @@
 
 import Swinject
 
-import Pure
-
 import AppContext_TabBar
 
 public final class TabBarAssembly: Assembly {

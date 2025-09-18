@@ -23,6 +23,18 @@ let impl = Target.target(
   infoPlist: .default,
   sources: ["Sources/Implement/**"],
   dependencies: [
+    .project(
+      target: "Shared_Foundation",
+      path: .relativeToRoot("Projects/Shared/Shared_Foundation")
+    ),
+    .project(
+      target: "AppCore_UI",
+      path: .relativeToRoot("Projects/AppCore/AppCore_UI")
+    ),
+    .project(
+      target: "Shared_ReactiveX",
+      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+    ),
   ]
 )
 

@@ -31,12 +31,14 @@ let impl = Target.target(
       target: "Shared_Foundation",
       path: .relativeToRoot("Projects/Shared/Shared_Foundation")
     ),
-    .external(name: "Then"),
-    .external(name: "FlexLayout"),
-    .external(name: "yoga"),
-    .external(name: "ReactorKit"),
-    .external(name: "RxSwift"),
-    .external(name: "RxCocoa"),
+    .project(
+      target: "Shared_ReactiveX",
+      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+    ),
+    .project(
+      target: "AppCore_UI",
+      path: .relativeToRoot("Projects/AppCore/AppCore_UI")
+    ),
   ],
   settings: .settings(base: [
     "OTHER_LDFLAGS": ["-ObjC"],           // 필요 시 "-all_load"로 테스트
