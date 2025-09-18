@@ -7,8 +7,6 @@
 
 import AppCore_UI
 
-import Foundation
-
 public protocol MainTabBarViewType: ViewType {
   var height: CGFloat { get }
 }
