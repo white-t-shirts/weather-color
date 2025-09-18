@@ -43,7 +43,8 @@ private extension TabBarAssembly {
       let tabBarReactorFactory: MainTabBarReactor.Factory = resolver.resolve()
       return MainTabBarViewFactory { payload in
         tabBarFactory.create(payload: .init(
-          reactor: tabBarReactorFactory.create(payload: .init())
+          reactor: tabBarReactorFactory.create(payload: .init()),
+          selectedTabObserver: payload.selectedTabObserver
         ))
       }
     }

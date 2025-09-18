@@ -5,6 +5,8 @@
 //  Created by 김동환 on 9/15/25.
 //
 
+import Shared_ReactiveX
+
 import AppCore_UI
 
 public protocol MainTabBarViewType: ViewType {
@@ -14,7 +16,11 @@ public protocol MainTabBarViewType: ViewType {
 
 public struct MainTabBarViewFactory: ViewFactoryType {
   public struct Payload {
-    public init() {}
+    public let selectedTabObserver: AnyObserver<MainTabBarType>
+
+    public init(selectedTabObserver: AnyObserver<MainTabBarType>) {
+      self.selectedTabObserver = selectedTabObserver
+    }
   }
 
   public var factoryClosure: FactoryClosure

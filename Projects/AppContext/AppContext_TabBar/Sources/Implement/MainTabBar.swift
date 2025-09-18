@@ -22,6 +22,7 @@ final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
 
   public struct Payload {
     let reactor: MainTabBarReactor
+    let selectedTabObserver: AnyObserver<MainTabBarType>
   }
 
 
@@ -50,6 +51,7 @@ final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
         self?.tabBarButtons.forEach { button in
           button.isSelected = (button.tabBarType == selectedTab)
         }
+        self?.payload.selectedTabObserver.onNext(selectedTab)
       })
       .disposed(by: self.disposeBag)
 
@@ -67,6 +69,7 @@ final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
     self.dependency = dependency
     self.payload = payload
     super.init(frame: .zero)
+    self.backgroundColor = .white
     self.setButtons(dependency: dependency)
     self.defineFlexContainer()
     self.configureLayerRadius()

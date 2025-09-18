@@ -12,6 +12,10 @@ let interface = Target.target(
   sources: ["Sources/Interface/**"],
   dependencies: [
     .project(
+      target: "Shared_ReactiveX",
+      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+    ),
+    .project(
       target: "AppCore_UI",
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
