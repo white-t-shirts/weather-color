@@ -13,6 +13,10 @@ let project = Project(
       sources: ["Sources/**"],
       resources: [],
       dependencies: [
+        .project(
+          target: "Shared_Foundation",
+          path: .relativeToRoot("Projects/Shared/Shared_Foundation")
+        ),
         .external(name: "FlexLayout"),
         .external(name: "PinLayout"),
       ]
