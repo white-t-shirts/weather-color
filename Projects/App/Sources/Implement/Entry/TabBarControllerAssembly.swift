@@ -26,7 +26,9 @@ private extension TabBarControllerAssembly {
     let resolver = container.synchronize()
     container.register(MainTabBarController.Factory.self) { _ in
       MainTabBarController.Factory(dependency: .init(
-        tabBarFactory: resolver.resolve()
+        tabBarFactory: resolver.resolve(),
+        homeViewControllerFactory: resolver.resolve(),
+        settingViewControllerFactory: resolver.resolve()
       ))
     }
   }

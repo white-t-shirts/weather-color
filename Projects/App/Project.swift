@@ -27,12 +27,21 @@ let impl = Target.target(
       path: .relativeToRoot("Projects/Shared/Shared_Foundation")
     ),
     .project(
+      target: "Shared_ReactiveX",
+      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+    ),
+    .project(
       target: "AppContext_TabBar",
       path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
     ),
-    .external(name: "RxSwift"),
-    .external(name: "Pure"),
-    .external(name: "PinLayout")
+    .project(
+      target: "AppFeature_Home",
+      path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
+    ),
+    .project(
+      target: "AppFeature_Setting",
+      path: .relativeToRoot("Projects/AppFeature/AppFeature_Setting")
+    ),
   ]
 )
 
