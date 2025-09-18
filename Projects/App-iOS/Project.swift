@@ -6,6 +6,10 @@ let project = Project.appHost(
   appTargetNames: ["App", "App_Impl"],
   extraDependencies: [
     .project(
+      target: "AppFeature_Home_Impl",
+      path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
+    ),
+    .project(
       target: "AppContext_TabBar_Impl",
       path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
     ),

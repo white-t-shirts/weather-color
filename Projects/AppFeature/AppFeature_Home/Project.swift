@@ -11,6 +11,10 @@ let interface = Target.target(
   infoPlist: .default,
   sources: ["Sources/Interface/**"],
   dependencies: [
+    .project(
+      target: "AppCore_UI",
+      path: .relativeToRoot("Projects/AppCore/AppCore_UI")
+    ),
   ]
 )
 
@@ -28,12 +32,16 @@ let impl = Target.target(
       path: .relativeToRoot("Projects/Shared/Shared_Foundation")
     ),
     .project(
+      target: "Shared_ReactiveX",
+      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+    ),
+    .project(
       target: "AppCore_UI",
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
     .project(
-      target: "Shared_ReactiveX",
-      path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+      target: "AppFeature_Home",
+      path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
     ),
   ]
 )

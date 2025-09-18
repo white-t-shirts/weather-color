@@ -12,6 +12,8 @@ import App_Impl
 
 import AppContext_TabBar_Impl
 
+import AppFeature_Home_Impl
+
 struct AppDependency {
   let appStarter: AppStarter
 }
@@ -22,6 +24,7 @@ enum CompositionRoot {
   static func resolve() -> AppDependency {
     let assemblies: [Assembly] = [
       App_Impl.TabBarControllerAssembly(),
+      AppFeature_Home_Impl.HomeAssembly(),
       AppContext_TabBar_Impl.TabBarAssembly(),
     ]
     _ = Assembler(assemblies, container: self.container)
