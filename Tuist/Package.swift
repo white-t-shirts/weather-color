@@ -4,20 +4,7 @@ import PackageDescription
 #if TUIST
 import struct ProjectDescription.PackageSettings
 
-let packageSettings = PackageSettings(
-  // Customize the product types for specific package product
-  // Default is .staticFramework
-  // productTypes: ["Alamofire": .framework,]
-//  productTypes: [
-//    "RxSwift": .framework,
-//    "ReactorKit": .framework,
-//    "FlexLayout": .framework,
-//    "PinLayout": .framework,
-//    "Pure": .framework,
-//    "Swinject": .framework,
-//    "Then": .framework,
-//  ]
-)
+let packageSettings = PackageSettings()
 #endif
 
 let package = Package(
