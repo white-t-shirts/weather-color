@@ -10,6 +10,10 @@ let project = Project.appHost(
       path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
     ),
     .project(
+      target: "AppFeature_Setting_Impl",
+      path: .relativeToRoot("Projects/AppFeature/AppFeature_Setting")
+    ),
+    .project(
       target: "AppContext_TabBar_Impl",
       path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
     ),
