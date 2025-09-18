@@ -31,12 +31,18 @@ private extension TabBarControllerAssembly {
         settingViewControllerFactory: resolver.resolve()
       ))
     }
+    container.register(MainTabBarControllerReactor.Factory.self) { _ in
+      MainTabBarControllerReactor.Factory(dependency: .init())
+    }
   }
   
   private func registerAppStarter(container: Container) {
     let resolver = container.synchronize()
     container.register(AppStarter.self) { _ in
-      return AppStarterImpl(tabBarControllerFactory: resolver.resolve())
+      return AppStarterImpl(
+        tabBarControllerFactory: resolver.resolve(),
+        tabBarControllerReactorFactory: resolver.resolve()
+      )
     }
   }
 }

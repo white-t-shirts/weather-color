@@ -12,13 +12,21 @@ import App
 final class AppStarterImpl: AppStarter {
   
   private let tabBarControllerFactory: MainTabBarController.Factory
-  
-  init(tabBarControllerFactory: MainTabBarController.Factory) {
+  private let tabBarControllerReactorFactory: MainTabBarControllerReactor.Factory
+
+  init(
+    tabBarControllerFactory: MainTabBarController.Factory,
+    tabBarControllerReactorFactory: MainTabBarControllerReactor.Factory
+  ) {
     self.tabBarControllerFactory = tabBarControllerFactory
+    self.tabBarControllerReactorFactory = tabBarControllerReactorFactory
   }
   
   func start(in window: UIWindow) {
-    let tabBarController = self.tabBarControllerFactory.create(payload: .init())
+    let reactor = self.tabBarControllerReactorFactory.create(payload: .init())
+    let tabBarController = self.tabBarControllerFactory.create(payload: .init(
+      reactor: reactor
+    ))
     let root = UINavigationController(rootViewController: tabBarController)
     window.rootViewController = root
   }
