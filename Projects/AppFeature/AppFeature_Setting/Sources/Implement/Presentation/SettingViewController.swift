@@ -9,7 +9,9 @@ import Shared_ReactiveX
 
 import AppCore_UI
 
-final class SettingViewController: UIViewController, View, FactoryModule, ViewControllerType {
+import AppFeature_Setting
+
+final class SettingViewController: UIViewController, View, FactoryModule, SettingViewControllerType {
 
   // MARK: Module
 

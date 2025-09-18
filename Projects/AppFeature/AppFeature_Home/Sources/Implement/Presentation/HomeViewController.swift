@@ -9,7 +9,9 @@ import Shared_ReactiveX
 
 import AppCore_UI
 
-final class HomeViewController: UIViewController, View, FactoryModule, ViewControllerType {
+import AppFeature_Home
+
+final class HomeViewController: UIViewController, View, FactoryModule, HomeViewControllerType {
 
   // MARK: Module
 
