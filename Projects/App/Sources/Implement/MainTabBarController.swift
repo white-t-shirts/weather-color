@@ -18,25 +18,25 @@ import AppFeature_Setting
 final class MainTabBarController: UITabBarController, FactoryModule, View {
 
   // MARK: Module
-  
+
   struct Dependency {
     let tabBarFactory: MainTabBarViewFactory
     let homeViewControllerFactory: HomeViewControllerFactoryType
     let settingViewControllerFactory: SettingViewControllerFactoryType
   }
-  
+
   struct Payload {
     let reactor: MainTabBarControllerReactor
   }
-  
-  
+
+
   // MARK: Properties
-  
+
   private let dependency: Dependency
   private let payload: Payload
   var disposeBag = DisposeBag()
 
-  
+
   // MARK: UI
 
   private var tabBarView: MainTabBarViewType?
@@ -44,15 +44,15 @@ final class MainTabBarController: UITabBarController, FactoryModule, View {
 
 
   // MARK: View Life Cycle
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
   }
-  
-  
+
+
   // MARK: Initialize
-  
+
   init(dependency: Dependency, payload: Payload) {
     defer { self.reactor = payload.reactor }
     self.dependency = dependency
@@ -80,8 +80,13 @@ final class MainTabBarController: UITabBarController, FactoryModule, View {
   private func setupViewControllers() {
     let viewControllers = MainTabBarType.allCases.map { item -> UIViewController in
       switch item {
-      case .home: return self.homeViewController() ?? UIViewController()
-      case .setting: return self.settingViewController() ?? UIViewController()
+      case .home:
+        guard let viewController = self.homeViewController() else { return UIViewController() }
+        return UINavigationController(rootViewController: viewController)
+
+      case .setting:
+        guard let viewController = self.settingViewController() else { return UIViewController() }
+        return UINavigationController(rootViewController: viewController)
       }
     }
     self.setViewControllers(viewControllers, animated: false)
@@ -104,20 +109,20 @@ final class MainTabBarController: UITabBarController, FactoryModule, View {
       .disposed(by: self.disposeBag)
   }
 
-  
+
   // MARK: Layout
-    
+
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.layoutFlexContainer()
   }
-  
+
   private func defineFlexContainer() {
     guard let tabBar = self.tabBarView else { return }
 
     self.view.addSubview(tabBar)
   }
-  
+
   private func layoutFlexContainer() {
     guard let tabBar = self.tabBarView else { return }
 
