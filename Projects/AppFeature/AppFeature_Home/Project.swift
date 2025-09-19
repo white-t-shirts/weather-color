@@ -40,6 +40,10 @@ let impl = Target.target(
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
     .project(
+      target: "AppCore_Network",
+      path: .relativeToRoot("Projects/AppCore/AppCore_Network")
+    ),
+    .project(
       target: "AppFeature_Home",
       path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
     ),

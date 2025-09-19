@@ -1,0 +1,50 @@
+//
+//  WeatherAPI.swift
+//  AppFeature_Home
+//
+//  Created by 김동환 on 9/19/25.
+//
+
+import Shared_Foundation
+
+import AppCore_Network
+
+enum WeatherAPI {
+  case forcast(q: String, days: Int)
+}
+
+extension WeatherAPI: TargetType {
+  var baseURL: URL {
+    URL(string: "https://api.weatherapi.com")!
+  }
+
+  var path: String {
+    switch self {
+    case .forcast:
+      return "/v1/forcast.json"
+    }
+  }
+
+  var method: Moya.Method {
+    switch self {
+    case .forcast:
+      return .get
+    }
+  }
+  
+  var task: Moya.Task {
+    switch self {
+    case let .forcast(q, days):
+      let parameters: [String: Any] = [
+        "q": q,
+        "key": PrivateKey.privateKey,
+        "days": days
+      ]
+      return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+    }
+  }
+
+  var headers: [String : String]? {
+    nil
+  }
+}
