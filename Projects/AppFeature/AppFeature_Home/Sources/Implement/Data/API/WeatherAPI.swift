@@ -10,7 +10,7 @@ import Shared_Foundation
 import AppCore_Network
 
 enum WeatherAPI {
-  case forcast(q: String, days: Int)
+  case forecast(q: String, days: Int)
 }
 
 extension WeatherAPI: TargetType {
@@ -20,21 +20,21 @@ extension WeatherAPI: TargetType {
 
   var path: String {
     switch self {
-    case .forcast:
-      return "/v1/forcast.json"
+    case .forecast:
+      return "/v1/forecast.json"
     }
   }
 
   var method: Moya.Method {
     switch self {
-    case .forcast:
+    case .forecast:
       return .get
     }
   }
   
   var task: Moya.Task {
     switch self {
-    case let .forcast(q, days):
+    case let .forecast(q, days):
       let parameters: [String: Any] = [
         "q": q,
         "key": PrivateKey.privateKey,

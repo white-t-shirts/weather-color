@@ -7,6 +7,8 @@
 
 import Shared_Foundation
 
+import AppCore_Network
+
 import AppFeature_Home
 
 public final class HomeAssembly: Assembly {
@@ -15,6 +17,7 @@ public final class HomeAssembly: Assembly {
   public func assemble(container: Container) {
     let funcs: [(Container) -> Void] = [
       self.registerHome,
+      self.registerApi,
     ]
     funcs.forEach { $0(container) }
   }
@@ -40,6 +43,12 @@ private extension HomeAssembly {
           reactor: reactorFactory.create(payload: .init())
         ))
       }
+    }
+  }
+
+  private func registerApi(container: Container) {
+    container.register(MoyaProvider<WeatherAPI>.self) { _ in
+      return MoyaProvider<WeatherAPI>()
     }
   }
 }
