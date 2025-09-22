@@ -7,6 +7,7 @@
 
 import AppCore_UI
 
+@MainActor
 public protocol HomeViewControllerType: ViewControllerType {
 }
 

@@ -15,8 +15,13 @@ let project = Project(
       dependencies: [
         .external(name: "Swinject"),
         .external(name: "Then"),
-        .external(name: "Pure"),
-      ]
+      ],
+      settings: .settings(
+        base: [
+          "SWIFT_VERSION": "6.0",
+          "SWIFT_STRICT_CONCURRENCY": "complete"
+        ]
+      )
     )
   ]
 )

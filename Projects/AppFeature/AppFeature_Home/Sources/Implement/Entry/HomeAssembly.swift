@@ -11,7 +11,8 @@ import AppCore_Network
 
 import AppFeature_Home
 
-public final class HomeAssembly: Assembly {
+@MainActor
+public final class HomeAssembly: @preconcurrency Assembly {
   public init() {}
 
   public func assemble(container: Container) {

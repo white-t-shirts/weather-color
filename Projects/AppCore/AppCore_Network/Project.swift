@@ -17,10 +17,20 @@ let project = Project(
           target: "Shared_Foundation",
           path: .relativeToRoot("Projects/Shared/Shared_Foundation")
         ),
+        .project(
+          target: "Shared_ReactiveX",
+          path: .relativeToRoot("Projects/Shared/Shared_ReactiveX")
+        ),
+        .external(name: "ObjectMapper"),
         .external(name: "Moya"),
         .external(name: "RxMoya"),
-        .external(name: "ObjectMapper"),
-      ]
+      ],
+      settings: .settings(
+        base: [
+          "SWIFT_VERSION": "6.0",
+          "SWIFT_STRICT_CONCURRENCY": "complete"
+        ]
+      )
     )
   ]
 )

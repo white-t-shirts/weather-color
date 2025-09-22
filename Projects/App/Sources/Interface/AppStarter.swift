@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public protocol AppStarter {
   func start(in window: UIWindow)
 }

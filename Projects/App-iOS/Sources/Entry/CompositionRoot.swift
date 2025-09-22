@@ -19,6 +19,7 @@ struct AppDependency {
   let appStarter: AppStarter
 }
 
+@MainActor
 enum CompositionRoot {
   fileprivate static var container: Container = Container(defaultObjectScope: .container)
   

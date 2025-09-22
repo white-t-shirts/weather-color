@@ -11,7 +11,7 @@ import AppCore_UI
 
 import AppFeature_Setting
 
-final class SettingViewController: UIViewController, View, FactoryModule, SettingViewControllerType {
+final class SettingViewController: UIViewController, @preconcurrency View, @preconcurrency FactoryModule, SettingViewControllerType {
 
   // MARK: Module
 

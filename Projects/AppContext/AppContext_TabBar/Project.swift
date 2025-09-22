@@ -19,7 +19,13 @@ let interface = Target.target(
       target: "AppCore_UI",
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
-  ]
+  ],
+  settings: .settings(
+    base: [
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+  )
 )
 
 let impl = Target.target(
@@ -43,13 +49,18 @@ let impl = Target.target(
       target: "AppCore_UI",
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
+    .project(
+      target: "AppContext_TabBar",
+      path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
+    ),
   ],
-  settings: .settings(base: [
-    "OTHER_LDFLAGS": ["-ObjC"],           // 필요 시 "-all_load"로 테스트
-    // FlexLayout 소스가 내부에서 #if SWIFT_PACKAGE로 YogaKit 임포트할 때
-    // 강제로 활성화해야 하면 아래도 추가:
-    // "OTHER_SWIFT_FLAGS": ["-DSWIFT_PACKAGE"]
-  ])
+  settings: .settings(
+    base: [
+      "OTHER_LDFLAGS": ["-ObjC"],
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+  )
 )
 
 let project = Project(

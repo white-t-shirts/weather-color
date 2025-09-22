@@ -9,7 +9,13 @@ let interface = Target.target(
   bundleId: "com.example.\(name).interface",
   deploymentTargets: .iOS("15.0"),
   infoPlist: .default,
-  sources: ["Sources/Interface/**"]
+  sources: ["Sources/Interface/**"],
+  settings: .settings(
+    base: [
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+  )
 )
 
 let impl = Target.target(
@@ -42,10 +48,24 @@ let impl = Target.target(
       target: "AppFeature_Setting",
       path: .relativeToRoot("Projects/AppFeature/AppFeature_Setting")
     ),
+  ],
+  settings: .settings(
+    base: [
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+  )
+)
+
+let commonSettings = Settings.settings(
+  base: [
+    "SWIFT_VERSION": "6.0",
+    "SWIFT_STRICT_CONCURRENCY": "complete"
   ]
 )
 
 let project = Project(
   name: name,
+  settings: commonSettings,
   targets: [interface, impl]
 )

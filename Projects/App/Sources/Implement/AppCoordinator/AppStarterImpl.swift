@@ -9,6 +9,7 @@ import AppCore_UI
 
 import App
 
+@MainActor
 final class AppStarterImpl: AppStarter {
   
   private let tabBarControllerFactory: MainTabBarController.Factory

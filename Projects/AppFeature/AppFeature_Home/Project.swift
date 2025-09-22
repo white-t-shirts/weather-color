@@ -15,7 +15,13 @@ let interface = Target.target(
       target: "AppCore_UI",
       path: .relativeToRoot("Projects/AppCore/AppCore_UI")
     ),
-  ]
+  ],
+  settings: .settings(
+    base: [
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete",
+    ]
+  ),
 )
 
 let impl = Target.target(
@@ -47,10 +53,24 @@ let impl = Target.target(
       target: "AppFeature_Home",
       path: .relativeToRoot("Projects/AppFeature/AppFeature_Home")
     ),
+  ],
+  settings: .settings(
+    base: [
+      "SWIFT_VERSION": "6.0",
+      "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+  ),
+)
+
+let commonSettings = Settings.settings(
+  base: [
+    "SWIFT_VERSION": "6.0",
+    "SWIFT_STRICT_CONCURRENCY": "complete"
   ]
 )
 
 let project = Project(
   name: name,
+  settings: commonSettings,
   targets: [interface, impl]
 )

@@ -12,7 +12,7 @@ import AppCore_UI
 
 import AppContext_TabBar
 
-final class MainTabBar: UIView, MainTabBarViewType, View, FactoryModule {
+final class MainTabBar: UIView, MainTabBarViewType, @preconcurrency View, @preconcurrency FactoryModule {
 
   // MARK: Module
 

@@ -15,7 +15,7 @@ import AppContext_TabBar
 import AppFeature_Home
 import AppFeature_Setting
 
-final class MainTabBarController: UITabBarController, FactoryModule, View {
+final class MainTabBarController: UITabBarController, @preconcurrency FactoryModule, @preconcurrency View {
 
   // MARK: Module
 

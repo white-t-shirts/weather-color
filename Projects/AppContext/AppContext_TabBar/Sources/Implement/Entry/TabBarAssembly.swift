@@ -9,7 +9,8 @@ import Swinject
 
 import AppContext_TabBar
 
-public final class TabBarAssembly: Assembly {
+@MainActor
+public final class TabBarAssembly: @preconcurrency Assembly {
   public init() {}
   
   public func assemble(container: Container) {

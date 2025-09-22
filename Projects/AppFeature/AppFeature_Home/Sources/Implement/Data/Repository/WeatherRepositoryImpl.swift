@@ -6,9 +6,8 @@
 //
 
 import Shared_ReactiveX
+
 import AppCore_Network
-import Foundation
-import Moya
 
 final class WeatherRepositoryImpl {
   let provider: MoyaProvider<WeatherAPI>
@@ -19,5 +18,16 @@ final class WeatherRepositoryImpl {
 }
 
 extension WeatherRepositoryImpl {
-  
+  func fetchWeather() async {
+    do {
+      let a = try await self.provider.rx.request(.forecast(q: "seoul", days: 1))
+        .filterSuccessfulStatusCodes()
+        .map(WeatherForecastResposeDTO.self)
+
+      print(a)
+
+    } catch {
+      print(error)
+    }
+  }
 }

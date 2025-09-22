@@ -21,7 +21,6 @@ let package = Package(
     // Foundation
     .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
     .package(url: "https://github.com/Swinject/Swinject.git", from: "2.0.0"),
-    .package(url: "https://github.com/devxoul/Pure.git", from: "1.1.4"),
 
     // Network
     .package(url: "https://github.com/Moya/Moya.git", from: "15.0.3"),

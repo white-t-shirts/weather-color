@@ -26,7 +26,7 @@ public extension Project {
       ]
     )
   }
-  
+
   static func appHost(
     name: String,
     appTargetNames: [String],
@@ -40,16 +40,26 @@ public extension Project {
           name: name,
           destinations: appDestinations,
           product: .app,
-          bundleId: "com.example.\(name)",
+          bundleId: "com.example.weathercolor",
           deploymentTargets: appDeployment,
-          infoPlist: .extendingDefault(with: ["UILaunchScreen": [:]]),
+          infoPlist: .extendingDefault(with: [
+            "UILaunchStoryboardName": "LaunchScreen"
+          ]),
           sources: ["Sources/**"],
           resources: ["Resources/**"],
           dependencies: extraDependencies + appDependency,
-          settings: .settings(base: [
-            "OTHER_LDFLAGS": ["-ObjC"]
-          ])
+          settings: .settings(
+            base: [
+              "OTHER_LDFLAGS": ["-ObjC"],
+              "SWIFT_VERSION": "6.0",
+              "SWIFT_STRICT_CONCURRENCY": "complete"
+            ]
+          )
         )
+      ],
+      resourceSynthesizers: [
+        .assets(),
+        .strings()
       ]
     )
   }

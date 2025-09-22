@@ -16,7 +16,13 @@ let project = Project(
         .external(name: "RxSwift"),
         .external(name: "RxCocoa"),
         .external(name: "ReactorKit"),
-      ]
+      ],
+      settings: .settings(
+        base: [
+          "SWIFT_VERSION": "6.0",
+          "SWIFT_STRICT_CONCURRENCY": "complete"
+        ]
+      )
     )
   ]
 )
