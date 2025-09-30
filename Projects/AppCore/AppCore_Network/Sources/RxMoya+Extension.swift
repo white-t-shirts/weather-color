@@ -5,22 +5,19 @@
 //  Created by 김동환 on 9/22/25.
 //
 
-import Shared_ReactiveX
+import Moya
 
-extension PrimitiveSequence where Trait == SingleTrait {
-  public func value() async throws -> Element {
-    let holder = SerialDisposable()
-
-    return try await withTaskCancellationHandler {
-      try await withCheckedThrowingContinuation { continuation in
-        let disposable = self.subscribe(
-          onSuccess: { continuation.resume(returning: $0) },
-          onFailure: { continuation.resume(throwing: $0) }
-        )
-        holder.disposable = disposable
+// Repository 개발 시 Moya 를 Swift Concurrency 기반으로 사용할 때 활용
+// 이를 Single.create 로 wrapping 해 사용
+public extension MoyaProvider {
+  func request(_ target: Target) async -> Result<Moya.Response, MoyaError> {
+    await withCheckedContinuation { continuation in
+      self.request(target) { result in
+        continuation.resume(returning: result)
       }
-    } onCancel: {
-      holder.dispose()
     }
   }
 }
+
+extension Moya.Response: @unchecked @retroactive Sendable {}
+extension MoyaError: @unchecked Sendable {}

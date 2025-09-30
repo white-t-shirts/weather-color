@@ -19,6 +19,7 @@ public final class HomeAssembly: @preconcurrency Assembly {
     let funcs: [(Container) -> Void] = [
       self.registerHome,
       self.registerApi,
+      self.registerRepository,
     ]
     funcs.forEach { $0(container) }
   }
@@ -30,6 +31,7 @@ private extension HomeAssembly {
 
     container.register(HomeViewReactor.Factory.self) { _ in
       return HomeViewReactor.Factory(dependency: .init(
+        repo: resolver.resolve()
       ))
     }
     container.register(HomeViewController.Factory.self) { _ in
@@ -51,5 +53,12 @@ private extension HomeAssembly {
     container.register(MoyaProvider<WeatherAPI>.self) { _ in
       return MoyaProvider<WeatherAPI>()
     }
+  }
+
+  private func registerRepository(container: Container) {
+//    let resolver = container.synchronize()
+//    container.register(WeatherRepository.self) { _ in
+//      return WeatherRepositoryImpl(provider: resolver.resolve())
+//    }
   }
 }

@@ -11,7 +11,7 @@ import AppCore_UI
 
 import AppFeature_Home
 
-final class HomeViewController: UIViewController, View, FactoryModule, HomeViewControllerType {
+final class HomeViewController: UIViewController, @preconcurrency View, @preconcurrency FactoryModule, HomeViewControllerType {
 
   // MARK: Module
 
@@ -54,5 +54,6 @@ final class HomeViewController: UIViewController, View, FactoryModule, HomeViewC
   // MARK: Bind
 
   func bind(reactor: HomeViewReactor) {
+    reactor.action.onNext(.fetchWeather)
   }
 }

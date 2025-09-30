@@ -5,14 +5,16 @@
 //  Created by 김동환 on 9/18/25.
 //
 
-import Shared_ReactiveX
 import Shared_Foundation
+import Shared_ReactiveX
 
-final class HomeViewReactor: Reactor, FactoryModule {
+@MainActor
+final class HomeViewReactor: @preconcurrency Reactor, @preconcurrency FactoryModule {
 
   // MARK: Module
 
   struct Dependency {
+    let repo: WeatherRepository
   }
 
   struct Payload {
@@ -22,6 +24,7 @@ final class HomeViewReactor: Reactor, FactoryModule {
   // MARK: Reactor
 
   enum Action {
+    case fetchWeather
   }
 
   enum Mutation {
@@ -45,6 +48,19 @@ final class HomeViewReactor: Reactor, FactoryModule {
 
 
   func mutate(action: Action) -> Observable<Mutation> {
+    switch action {
+    case .fetchWeather:
+
+      Single.create { try await self.dependency.repo.fetchWeather(query: "seoul", days: 1) }
+        .asObservable()
+        .flatMap { _ -> Observable<Mutation> in
+          return .empty()
+        }
+        .catch { error -> Observable<Mutation> in
+          return .empty()
+        }
+
+    }
     return .empty()
   }
 
