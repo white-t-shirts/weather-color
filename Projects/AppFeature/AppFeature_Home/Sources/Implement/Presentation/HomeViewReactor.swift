@@ -8,8 +8,7 @@
 import Shared_Foundation
 import Shared_ReactiveX
 
-@MainActor
-final class HomeViewReactor: @preconcurrency Reactor, @preconcurrency FactoryModule {
+final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
 
   // MARK: Module
 
@@ -28,9 +27,11 @@ final class HomeViewReactor: @preconcurrency Reactor, @preconcurrency FactoryMod
   }
 
   enum Mutation {
+    case setDTO(WeatherForecastResposeDTO?)
   }
 
   struct State {
+    var dto: WeatherForecastResposeDTO?
   }
 
 
@@ -51,13 +52,14 @@ final class HomeViewReactor: @preconcurrency Reactor, @preconcurrency FactoryMod
     switch action {
     case .fetchWeather:
 
-      Single.create { try await self.dependency.repo.fetchWeather(query: "seoul", days: 1) }
+      return Single.create { try await self.dependency.repo.weatherForecast(query: "seoul", days: 1) }
         .asObservable()
-        .flatMap { _ -> Observable<Mutation> in
+        .flatMap { ss -> Observable<Mutation> in
+          print(ss)
           return .empty()
         }
         .catch { error -> Observable<Mutation> in
-          return .empty()
+          return .just(.setDTO(nil))
         }
 
     }
@@ -65,6 +67,12 @@ final class HomeViewReactor: @preconcurrency Reactor, @preconcurrency FactoryMod
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
-    return State()
+    var newState = state
+    switch mutation {
+    case let .setDTO(dto):
+      print(dto)
+      newState.dto = dto
+    }
+    return newState
   }
 }

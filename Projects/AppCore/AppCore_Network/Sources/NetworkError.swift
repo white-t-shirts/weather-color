@@ -8,5 +8,7 @@
 public enum APICallError: Error {
   case serverError
   case networkError
+  case jsonMappingError
+  case entityMappingError
   case unknown
 }

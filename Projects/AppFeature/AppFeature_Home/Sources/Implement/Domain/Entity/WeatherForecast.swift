@@ -41,7 +41,7 @@ struct DayForecast {
 }
 
 struct HourForecast {
-  let time: Date
+  let time: Date?
   let temp: Double
   let feelsLikeTemp: Double
   let willRain: Bool

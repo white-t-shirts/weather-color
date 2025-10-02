@@ -56,9 +56,9 @@ private extension HomeAssembly {
   }
 
   private func registerRepository(container: Container) {
-//    let resolver = container.synchronize()
-//    container.register(WeatherRepository.self) { _ in
-//      return WeatherRepositoryImpl(provider: resolver.resolve())
-//    }
+    let resolver = container.synchronize()
+    container.register(WeatherRepository.self) { _ in
+      return WeatherRepositoryImpl(provider: resolver.resolve())
+    }
   }
 }

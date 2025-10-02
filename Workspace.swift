@@ -6,6 +6,8 @@ let workspace = Workspace(
     "Projects/App-iOS",
     "Projects/App",
     "Projects/AppFeature/**",
+    "Projects/Domain/**",
+    "Projects/Data/**",
     "Projects/AppContext/**",
     "Projects/AppCore/**",
     "Projects/Shared/**",

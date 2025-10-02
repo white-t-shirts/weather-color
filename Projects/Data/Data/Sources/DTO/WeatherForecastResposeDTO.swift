@@ -5,9 +5,11 @@
 //  Created by 김동환 on 9/19/25.
 //
 
-import Foundation
+import Shared_Foundation
 
 import AppCore_Network
+
+import Domain
 
 struct WeatherForecastResposeDTO: ImmutableMappable {
   let locationDTO: LocationDTO

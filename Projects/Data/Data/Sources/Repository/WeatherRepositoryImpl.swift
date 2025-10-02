@@ -9,6 +9,8 @@ import Shared_ReactiveX
 
 import AppCore_Network
 
+import Domain
+
 final class WeatherRepositoryImpl: WeatherRepository {
 
   private let provider: MoyaProvider<WeatherAPI>
