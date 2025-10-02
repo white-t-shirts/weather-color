@@ -8,10 +8,10 @@
 import Foundation
 
 public struct WeatherForecast {
-  let cityName: String
-  let localTime: Date?
-  let currentWeather: CurrentWeather
-  let forecast: Forecast
+  public let cityName: String
+  public let localTime: Date?
+  public let currentWeather: CurrentWeather
+  public let forecast: Forecast
 
   public init(cityName: String, localTime: Date?, currentWeather: CurrentWeather, forecast: Forecast) {
     self.cityName = cityName
@@ -22,12 +22,12 @@ public struct WeatherForecast {
 }
 
 public struct CurrentWeather {
-  let temp: Double
-  let feelsLikeTemp: Double
-  let condition: String
-  let isDay: Bool
-  let uv: Double
-  let humidity: Double
+  public let temp: Double
+  public let feelsLikeTemp: Double
+  public let condition: String
+  public let isDay: Bool
+  public let uv: Double
+  public let humidity: Double
 
   public init(temp: Double, feelsLikeTemp: Double, condition: String, isDay: Bool, uv: Double, humidity: Double) {
     self.temp = temp
@@ -40,8 +40,8 @@ public struct CurrentWeather {
 }
 
 public struct Forecast {
-  let dayForecast: DayForecast
-  let hourForecasts: [HourForecast]
+  public let dayForecast: DayForecast
+  public let hourForecasts: [HourForecast]
 
   public init(dayForecast: DayForecast, hourForecasts: [HourForecast]) {
     self.dayForecast = dayForecast
@@ -50,15 +50,15 @@ public struct Forecast {
 }
 
 public struct DayForecast {
-  let maxTemp: Double
-  let averageTemp: Double
-  let minTemp: Double
-  let willRain: Bool
-  let chanceOfRain: Double
-  let willSnow: Bool
-  let chanceOfSnow: Double
-  let averageHumidity: Double
-  let uv: Double
+  public let maxTemp: Double
+  public let averageTemp: Double
+  public let minTemp: Double
+  public let willRain: Bool
+  public let chanceOfRain: Double
+  public let willSnow: Bool
+  public let chanceOfSnow: Double
+  public let averageHumidity: Double
+  public let uv: Double
 
   public init(
     maxTemp: Double,
@@ -84,14 +84,14 @@ public struct DayForecast {
 }
 
 public struct HourForecast {
-  let time: Date?
-  let temp: Double
-  let feelsLikeTemp: Double
-  let willRain: Bool
-  let chanceOfRain: Double
-  let willSnow: Bool
-  let chanceOfSnow: Double
-  let condition: String
+  public let time: Date?
+  public let temp: Double
+  public let feelsLikeTemp: Double
+  public let willRain: Bool
+  public let chanceOfRain: Double
+  public let willSnow: Bool
+  public let chanceOfSnow: Double
+  public let condition: String
 
   public init(
     time: Date?,

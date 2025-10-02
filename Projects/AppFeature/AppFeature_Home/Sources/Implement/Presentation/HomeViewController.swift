@@ -54,7 +54,6 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
   // MARK: Bind
 
   func bind(reactor: HomeViewReactor) {
-    reactor.action.onNext(.fetchWeather)
-
+    reactor.action.onNext(.fetchWeather(cityName: "seoul"))
   }
 }

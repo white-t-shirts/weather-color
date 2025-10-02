@@ -8,12 +8,14 @@
 import Shared_Foundation
 import Shared_ReactiveX
 
+import Domain
+
 final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
 
   // MARK: Module
 
   struct Dependency {
-    let repo: WeatherRepository
+    let weatherForecastUseCase: WeatherForecastUseCase
   }
 
   struct Payload {
@@ -23,15 +25,19 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
   // MARK: Reactor
 
   enum Action {
-    case fetchWeather
+    case fetchWeather(cityName: String)
   }
 
   enum Mutation {
-    case setDTO(WeatherForecastResposeDTO?)
+    case setWeatherForcast(WeatherForecast)
   }
 
   struct State {
-    var dto: WeatherForecastResposeDTO?
+    var cityName: String?
+    var localTime: Date?
+
+    var currentWeather: CurrentWeather?
+    var forecast: Forecast?
   }
 
 
@@ -50,29 +56,30 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
 
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .fetchWeather:
-
-      return Single.create { try await self.dependency.repo.weatherForecast(query: "seoul", days: 1) }
-        .asObservable()
-        .flatMap { ss -> Observable<Mutation> in
-          print(ss)
-          return .empty()
-        }
-        .catch { error -> Observable<Mutation> in
-          return .just(.setDTO(nil))
-        }
-
+    case let .fetchWeather(cityName):
+      return self.fetchWeatherForcast(cityName: cityName)
     }
-    return .empty()
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
     var newState = state
+
     switch mutation {
-    case let .setDTO(dto):
-      print(dto)
-      newState.dto = dto
+    case let .setWeatherForcast(weatherForecast):
+      newState.cityName = weatherForecast.cityName
+      newState.localTime = weatherForecast.localTime
+
+      newState.currentWeather = weatherForecast.currentWeather
+      newState.forecast = weatherForecast.forecast
     }
+
     return newState
+  }
+
+
+  private func fetchWeatherForcast(cityName: String) -> Observable<Mutation> {
+    Single.create { try await self.dependency.weatherForecastUseCase.weatherForecast(query: cityName, days: 1) }
+      .asObservable()
+      .map(Mutation.setWeatherForcast)
   }
 }

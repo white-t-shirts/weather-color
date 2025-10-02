@@ -15,7 +15,7 @@ public final class DomainAssembly: @preconcurrency Assembly {
 
   public func assemble(container: Container) {
     let funcs: [(Container) -> Void] = [
-
+      self.registerUseCase,
     ]
     funcs.forEach { $0(container) }
   }

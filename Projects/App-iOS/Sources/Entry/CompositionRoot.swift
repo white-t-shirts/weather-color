@@ -12,6 +12,9 @@ import App_Impl
 
 import AppContext_TabBar_Impl
 
+import Domain_Impl
+import Data
+
 import AppFeature_Home_Impl
 import AppFeature_Setting_Impl
 
@@ -28,6 +31,8 @@ enum CompositionRoot {
       App_Impl.TabBarControllerAssembly(),
       AppFeature_Home_Impl.HomeAssembly(),
       AppFeature_Setting_Impl.SettingAssembly(),
+      Domain_Impl.DomainAssembly(),
+      DataAssembly(),
       AppContext_TabBar_Impl.TabBarAssembly(),
     ]
     _ = Assembler(assemblies, container: self.container)

@@ -14,6 +14,14 @@ let project = Project.appHost(
       path: .relativeToRoot("Projects/AppFeature/AppFeature_Setting")
     ),
     .project(
+      target: "Domain_Impl",
+      path: .relativeToRoot("Projects/Domain/Domain")
+    ),
+    .project(
+      target: "Data",
+      path: .relativeToRoot("Projects/Data/Data")
+    ),
+    .project(
       target: "AppContext_TabBar_Impl",
       path: .relativeToRoot("Projects/AppContext/AppContext_TabBar")
     ),
