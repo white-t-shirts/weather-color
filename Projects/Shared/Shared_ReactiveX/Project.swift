@@ -16,6 +16,7 @@ let project = Project(
         .external(name: "RxSwift"),
         .external(name: "RxCocoa"),
         .external(name: "ReactorKit"),
+        .external(name: "RxDataSources"),
       ],
       settings: .settings(
         base: [

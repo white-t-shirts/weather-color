@@ -19,6 +19,7 @@ let project = Project(
         ),
         .external(name: "FlexLayout"),
         .external(name: "PinLayout"),
+        .external(name: "ReusableKit"),
       ],
       settings: .settings(
         base: [

@@ -13,10 +13,12 @@ let package = Package(
     // Rx
     .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "6.0.0"),
     .package(url: "https://github.com/ReactorKit/ReactorKit.git", from: "3.0.0"),
+    .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", from: "5.0.2"),
 
     // UI
     .package(url: "https://github.com/layoutBox/PinLayout.git", from: "1.0.0"),
     .package(url: "https://github.com/layoutBox/FlexLayout.git", from: "2.2.2"),
+    .package(url: "https://github.com/devxoul/ReusableKit.git", from: "4.0.0"),
 
     // Foundation
     .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),

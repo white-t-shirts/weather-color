@@ -1,5 +1,5 @@
 {
-  "originHash" : "90ddf427507180600bd0837e9557e7a602e141c5b9a707e7206a10cd8b983117",
+  "originHash" : "3e668e87aca37cba935efe0fb51cac9bfd49a079889a1a760e2f40de65038e4b",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -62,6 +62,24 @@
       "state" : {
         "revision" : "8fa33f09c6f6621a2aa536d739956d53b84dd139",
         "version" : "3.2.0"
+      }
+    },
+    {
+      "identity" : "reusablekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/devxoul/ReusableKit.git",
+      "state" : {
+        "revision" : "22910a503dfc81018c0270dbb62a30279d80b00f",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "rxdatasources",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxDataSources.git",
+      "state" : {
+        "revision" : "90c29b48b628479097fe775ed1966d75ac374518",
+        "version" : "5.0.2"
       }
     },
     {
