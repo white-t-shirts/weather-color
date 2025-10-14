@@ -16,10 +16,16 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
   // MARK: Module
 
   struct Dependency {
+    let titleCellConfigurator: HomeViewControllerMainTitleCell.Configurator
   }
 
   struct Payload {
     let reactor: HomeViewReactor
+  }
+
+  @MainActor
+  private enum Reusable {
+    static let titleCell = ReusableCell<HomeViewControllerMainTitleCell>()
   }
 
 
@@ -30,6 +36,19 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
   var disposeBag: DisposeBag = DisposeBag()
 
 
+  // MARK: UI
+
+  private let collectionView = UICollectionView(
+    frame: .zero,
+    collectionViewLayout: UICollectionViewFlowLayout().then {
+      $0.scrollDirection = .vertical
+    }
+  ).then {
+    $0.register(Reusable.titleCell)
+    $0.showsVerticalScrollIndicator = false
+  }
+
+
   // MARK: Initialize
 
   init(dependency: Dependency, payload: Payload) {
@@ -37,10 +56,19 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
     self.dependnecty = dependency
     self.payload = payload
     super.init(nibName: nil, bundle: nil)
+    self.view.addSubview(self.collectionView)
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  private func createDataSource() -> RxCollectionViewSectionedReloadDataSource<HomeViewSection> {
+    return .init(
+      configureCell: { [weak self] _, collectionView, indexPath, sectionItem in
+        return UICollectionViewCell()
+      }
+    )
   }
 
 
@@ -48,6 +76,11 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
 
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.collectionView.pin.all()
   }
 
 

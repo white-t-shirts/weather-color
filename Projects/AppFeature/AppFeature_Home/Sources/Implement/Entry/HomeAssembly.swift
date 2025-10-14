@@ -18,6 +18,7 @@ public final class HomeAssembly: @preconcurrency Assembly {
   public func assemble(container: Container) {
     let funcs: [(Container) -> Void] = [
       self.registerHome,
+      self.registerCells,
     ]
     funcs.forEach { $0(container) }
   }
@@ -34,6 +35,7 @@ private extension HomeAssembly {
     }
     container.register(HomeViewController.Factory.self) { _ in
       return HomeViewController.Factory(dependency: .init(
+        titleCellConfigurator: resolver.resolve()
       ))
     }
     container.register(HomeViewControllerFactoryType.self) { _ in
@@ -44,6 +46,12 @@ private extension HomeAssembly {
           reactor: reactorFactory.create(payload: .init())
         ))
       }
+    }
+  }
+
+  private func registerCells(container: Container) {
+    container.register(HomeViewControllerMainTitleCell.Configurator.self) { _ in
+      HomeViewControllerMainTitleCell.Configurator(dependency: .init())
     }
   }
 }

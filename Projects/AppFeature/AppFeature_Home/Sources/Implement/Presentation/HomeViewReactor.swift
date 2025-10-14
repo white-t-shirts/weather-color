@@ -30,14 +30,18 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
 
   enum Mutation {
     case setWeatherForcast(WeatherForecast)
+    case updateSections
   }
 
   struct State {
     var cityName: String?
+    var mainTitle: String?
     var localTime: Date?
 
     var currentWeather: CurrentWeather?
     var forecast: Forecast?
+
+    var homeViewSection: [HomeViewSection] = []
   }
 
 
@@ -57,7 +61,10 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case let .fetchWeather(cityName):
-      return self.fetchWeatherForcast(cityName: cityName)
+      return .concat([
+        self.fetchWeatherForcast(cityName: cityName),
+        .just(.updateSections)
+      ])
     }
   }
 
@@ -67,10 +74,17 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
     switch mutation {
     case let .setWeatherForcast(weatherForecast):
       newState.cityName = weatherForecast.cityName
+      newState.mainTitle = "Hello, there -\n\(weatherForecast.cityName) now"
+
       newState.localTime = weatherForecast.localTime
 
       newState.currentWeather = weatherForecast.currentWeather
       newState.forecast = weatherForecast.forecast
+
+    case .updateSections:
+      newState.homeViewSection = [
+        self.mainTitleSection(state: state)
+      ]
     }
 
     return newState
@@ -81,5 +95,15 @@ final class HomeViewReactor: Reactor, FactoryModule, @unchecked Sendable {
     Single.create { try await self.dependency.weatherForecastUseCase.weatherForecast(query: cityName, days: 1) }
       .asObservable()
       .map(Mutation.setWeatherForcast)
+  }
+}
+
+
+// MARK: Section
+
+extension HomeViewReactor {
+  func mainTitleSection(state: State) -> HomeViewSection {
+    let title = state.mainTitle ?? "Hello, there"
+    return .init(identity: .title, items: [.title(text: title)])
   }
 }
