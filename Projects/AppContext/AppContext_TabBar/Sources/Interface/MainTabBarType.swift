@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public enum MainTabBarType: CaseIterable {
   case home
   case setting
@@ -47,4 +48,7 @@ public enum MainTabBarType: CaseIterable {
   public var deselectedImageTintColor: UIColor {
     return .systemGray3
   }
+
+  public static let tabBarButtonHeight: CGFloat = 52
+  public static let height: CGFloat = UIScreen.height + Self.tabBarButtonHeight
 }

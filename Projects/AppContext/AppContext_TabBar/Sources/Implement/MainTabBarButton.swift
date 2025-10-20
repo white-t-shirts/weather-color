@@ -16,7 +16,7 @@ final class MainTabBarButton: UIButton, ConfiguratorModule {
 
   // MARK: Constant
 
-  static let height: CGFloat = 52
+  static let height: CGFloat = MainTabBarType.tabBarButtonHeight
 
 
   // MARK: Module
