@@ -82,11 +82,15 @@ final class MainTabBarController: UITabBarController, @preconcurrency FactoryMod
       switch item {
       case .home:
         guard let viewController = self.homeViewController() else { return UIViewController() }
-        return UINavigationController(rootViewController: viewController)
+        let rootNavigationController = UINavigationController(rootViewController: viewController)
+        rootNavigationController.setNavigationBarHidden(true, animated: false)
+        return rootNavigationController
 
       case .setting:
         guard let viewController = self.settingViewController() else { return UIViewController() }
-        return UINavigationController(rootViewController: viewController)
+        let rootNavigationController = UINavigationController(rootViewController: viewController)
+        rootNavigationController.setNavigationBarHidden(true, animated: false)
+        return rootNavigationController
       }
     }
     self.setViewControllers(viewControllers, animated: false)

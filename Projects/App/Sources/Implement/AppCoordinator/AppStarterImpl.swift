@@ -28,7 +28,6 @@ final class AppStarterImpl: AppStarter {
     let tabBarController = self.tabBarControllerFactory.create(payload: .init(
       reactor: reactor
     ))
-    let root = UINavigationController(rootViewController: tabBarController)
-    window.rootViewController = root
+    window.rootViewController = tabBarController
   }
 }
