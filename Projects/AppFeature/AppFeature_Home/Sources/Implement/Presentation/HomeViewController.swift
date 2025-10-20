@@ -9,6 +9,8 @@ import Shared_ReactiveX
 
 import AppCore_UI
 
+import AppContext_TabBar
+
 import AppFeature_Home
 
 final class HomeViewController: UIViewController, @preconcurrency View, @preconcurrency FactoryModule, HomeViewControllerType {
@@ -31,20 +33,22 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
 
   // MARK: Properties
 
-  private let dependnecty: Dependency
+  private let dependency: Dependency
   private let payload: Payload
   var disposeBag: DisposeBag = DisposeBag()
+  private lazy var dataSource = self.createDataSource()
 
 
   // MARK: UI
 
-  private let collectionView = UICollectionView(
+  private lazy var collectionView = UICollectionView(
     frame: .zero,
     collectionViewLayout: UICollectionViewFlowLayout().then {
       $0.scrollDirection = .vertical
     }
   ).then {
     $0.register(Reusable.titleCell)
+    $0.delegate = self
     $0.showsVerticalScrollIndicator = false
   }
 
@@ -53,7 +57,7 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
 
   init(dependency: Dependency, payload: Payload) {
     defer { self.reactor = payload.reactor }
-    self.dependnecty = dependency
+    self.dependency = dependency
     self.payload = payload
     super.init(nibName: nil, bundle: nil)
     self.view.addSubview(self.collectionView)
@@ -64,11 +68,14 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
   }
 
   private func createDataSource() -> RxCollectionViewSectionedReloadDataSource<HomeViewSection> {
-    return .init(
-      configureCell: { [weak self] _, collectionView, indexPath, sectionItem in
-        return UICollectionViewCell()
+    return .init(configureCell: { [weak self] _, collectionView, indexPath, sectionItem in
+      switch sectionItem {
+      case let .title(text):
+        let cell = collectionView.dequeue(Reusable.titleCell, for: indexPath)
+        self?.dependency.titleCellConfigurator.configure(cell, payload: .init(title: text))
+        return cell
       }
-    )
+    })
   }
 
 
@@ -88,5 +95,27 @@ final class HomeViewController: UIViewController, @preconcurrency View, @preconc
 
   func bind(reactor: HomeViewReactor) {
     reactor.action.onNext(.fetchWeather(cityName: "seoul"))
+
+    reactor.state.map { $0.homeViewSection }
+      .distinctUntilChanged()
+      .bind(to: self.collectionView.rx.items(dataSource: self.dataSource))
+      .disposed(by: self.disposeBag)
+  }
+}
+
+
+// MARK: CollectionView Delegate
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    sizeForItemAt indexPath: IndexPath
+  ) -> CGSize {
+    let sectionItem = self.dataSource[indexPath]
+    switch sectionItem {
+    case .title:
+      return HomeViewControllerMainTitleCell.size(width: collectionView.frame.width)
+    }
   }
 }

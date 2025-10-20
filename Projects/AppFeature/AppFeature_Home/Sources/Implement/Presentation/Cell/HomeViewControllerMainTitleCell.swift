@@ -56,7 +56,10 @@ final class HomeViewControllerMainTitleCell: UICollectionViewCell, ConfiguratorM
 
   override func layoutSubviews() {
     super.layoutSubviews()
-
     self.titleLabel.pin.all()
+  }
+
+  static func size(width: CGFloat) -> CGSize {
+    return .init(width: width, height: 40)
   }
 }
